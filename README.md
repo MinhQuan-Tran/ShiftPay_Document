@@ -28,7 +28,7 @@ You can find the main code for the project in the [frontend GitHub repository](h
 
 ## Introduction
 
-This repository serves as a central place for all the documentation related to the [Your Project Name]. It provides an in-depth view of the functionality, architecture, and design decisions that went into building the project. The docs are structured as follows:
+This repository serves as a central place for all the documentation related to the ShiftPay. It provides an in-depth view of the functionality, architecture, and design decisions that went into building the project. The docs are structured as follows:
 
 - **Functional Requirements**: Describes the key features and functionalities of the project.
 - **Technical Design**: Provides details on how the system is implemented, including technology stack, database structure, and API design.
