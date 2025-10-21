@@ -12,10 +12,8 @@ Shift workers often face difficulties in tracking their hours and income accurat
 
 ### Target Audience
 
-**ShiftPay** is designed for:
 - **Shift Workers**: Individuals working hourly or irregular shifts who need to track both their time and earnings.
 - **Freelancers**: Workers with flexible schedules and multiple employers who require accurate tracking of hours and pay.
-- **Employers and Managers**: For overseeing worker schedules and ensuring accurate payroll processing.
 
 ### Key Features
 
