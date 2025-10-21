@@ -34,7 +34,6 @@ You can find the main code for the project in the [frontend GitHub repository](h
 - [Wireframes](#wireframes)
 - [User Stories](#user-stories)
 - [Testing](#testing)
-- [How to Use This Repo](#how-to-use-this-repo)
 - [License](#license)
 
 ## Introduction
@@ -97,14 +96,6 @@ Check out the full **User Stories** document [here](docs/user-stories.md).
 The **Testing** section outlines the various tests conducted for the project, including unit tests, integration tests, and end-to-end tests. It also includes instructions for setting up and running tests.
 
 You can access the **Testing** documentation [here](docs/testing.md).
-
-## How to Use This Repo
-
-This repository is intended to serve as a reference for understanding the design, features, and structure of the [Your Project Name]. It is not intended to be used as a functional codebase but as a guide for the project’s architecture and decisions.
-
-1. Navigate through the sections based on your interest (Functional, Technical, User Stories, etc.).
-2. Each document can be opened and reviewed for a better understanding of the design and implementation decisions.
-3. Feel free to refer to the linked documents and sections for more detailed information.
 
 ## License
 
