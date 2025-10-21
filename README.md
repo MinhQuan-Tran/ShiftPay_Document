@@ -67,7 +67,7 @@ To dive deeper, view the full **Technical Design** document [here](docs/technica
 
 This section use C4 Model provides a visual diagram and process flow of the system architecture, including the backend, frontend, and database interactions.
 
-You can view the **System Architecture** diagram and details [here](https://s.icepanel.io/6Gly5HmgeLhqbo/1TFX).
+You can view the **System Architecture** diagram and details [here](https://s.icepanel.io/6Gly5HmgeLhqbo/1TFX){:target="_blank"}.
 
 ## API Design
 
