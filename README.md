@@ -21,6 +21,7 @@ Shift workers often face difficulties in tracking their hours and income accurat
 - **Record working hours** for accurate time tracking.
 - **Manage shift patterns** and monitor work-life balance.
 
+You can explore the live version of the project [here](https://shiftpay-mqtran.netlify.app/).
 
 You can find the main code for the project in the [frontend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Frontend) and [backend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Backend).
 
@@ -49,10 +50,7 @@ This repository serves as a central place for all the documentation related to t
 ## Functional Requirements
 
 The **Functional Requirements** section outlines the main features of the application. This includes:
-- User authentication (login/signup)
 - Task management (create, read, update, delete tasks)
-- Notifications and reminders
-- Reporting and data visualization
 
 You can read the full **Functional Requirements** document [here](docs/functional-requirements.md).
 
@@ -67,9 +65,9 @@ To dive deeper, view the full **Technical Design** document [here](docs/technica
 
 ## System Architecture
 
-This section provides a visual diagram of the system architecture, including the backend, frontend, and database interactions.
+This section use C4 Model provides a visual diagram and process flow of the system architecture, including the backend, frontend, and database interactions.
 
-You can view the **System Architecture** diagram and details [here](docs/system-architecture.md).
+You can view the **System Architecture** diagram and details [here](https://s.icepanel.io/6Gly5HmgeLhqbo/1TFX).
 
 ## API Design
 
