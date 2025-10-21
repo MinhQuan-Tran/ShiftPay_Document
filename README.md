@@ -6,6 +6,19 @@ Welcome to the documentation repository for ShiftPay. This repository contains a
 
 **ShiftPay** is a digital platform designed to keep track of **weekly income** and **working hours** based on shift work. This project aims to provide a comprehensive solution for workers to manage their earnings efficiently.
 
+### Problem Statement
+
+Shift workers often face difficulties in tracking their hours and income accurately, especially when dealing with irregular hours, varying rates, and unpaid breaks. This can lead to missed payments, inaccurate pay calculations, and a lack of work-life balance. **ShiftPay** provides a streamlined solution for workers to track their time and income efficiently.
+
+### Target Audience
+
+**ShiftPay** is designed for:
+- **Shift Workers**: Individuals working hourly or irregular shifts who need to track both their time and earnings.
+- **Freelancers**: Workers with flexible schedules and multiple employers who require accurate tracking of hours and pay.
+- **Employers and Managers**: For overseeing worker schedules and ensuring accurate payroll processing.
+
+### Key Features
+
 - **Track earnings** based on hourly rates.
 - **Record working hours** for accurate time tracking.
 - **Manage shift patterns** and monitor work-life balance.
