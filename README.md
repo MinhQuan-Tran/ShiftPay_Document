@@ -4,7 +4,7 @@ Welcome to the documentation repository for ShiftPay. This repository contains a
 
 ## Project Overview
 
-**ShiftPay** is a digital platform designed to keep track of **weekly income** and **working hours** based on shift work. This project aims to provide a comprehensive solution for workers to manage their earnings efficiently.
+**ShiftPay** is a digital platform that gives casual and shift workers instant clarity and control over their income and working hours. By turning hourly rates and shift patterns into clear earnings summaries, it helps users see exactly what they should be paid and plan their finances with confidence.
 
 ### Problem Statement
 
@@ -19,11 +19,13 @@ Shift workers often face difficulties in tracking their hours and income accurat
 
 - **Track earnings** based on hourly rates.
 - **Record working hours** for accurate time tracking.
-- **Manage shift patterns** and monitor work-life balance.
+- **Visualise work schedule** and manage shift patterns.
 
-You can explore the live version of the project [here](https://shiftpay-mqtran.netlify.app/).
+Live version of the project: [here](https://shiftpay-mqtran.netlify.app/).
 
-You can find the main code for the project in the [frontend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Frontend) and [backend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Backend).
+Main code for the project: 
+- [frontend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Frontend)
+- [backend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Backend)
 
 ## Table of Contents
 
