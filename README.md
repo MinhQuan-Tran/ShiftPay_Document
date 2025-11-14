@@ -23,9 +23,7 @@ Shift workers often face difficulties in tracking their hours and income accurat
 
 [Live Version](https://shiftpay-mqtran.netlify.app/)
 
-
-[Frontend Repository](https://github.com/MinhQuan-Tran/ShiftPay_Frontend)
-
+[Frontend Repository](https://github.com/MinhQuan-Tran/ShiftPay_Frontend)  
 [Backend Repository](https://github.com/MinhQuan-Tran/ShiftPay_Backend)
 
 ## Table of Contents
