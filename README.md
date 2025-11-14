@@ -21,11 +21,10 @@ Shift workers often face difficulties in tracking their hours and income accurat
 - **Record working hours** for accurate time tracking.
 - **Visualise work schedule** and manage shift patterns.
 
-Live version of the project: [here](https://shiftpay-mqtran.netlify.app/).
+[Live Version](https://shiftpay-mqtran.netlify.app/).
 
-Main code for the project: 
-- [frontend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Frontend)
-- [backend GitHub repository](https://github.com/MinhQuan-Tran/ShiftPay_Backend)
+[Frontend Repository](https://github.com/MinhQuan-Tran/ShiftPay_Frontend)
+[Backend Repository](https://github.com/MinhQuan-Tran/ShiftPay_Backend)
 
 ## Table of Contents
 
