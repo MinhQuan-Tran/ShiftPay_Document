@@ -4,22 +4,25 @@ Welcome to the documentation repository for ShiftPay. This repository contains a
 
 ## Project Overview
 
-**ShiftPay** is a digital platform that gives casual and shift workers instant clarity and control over their income and working hours. By turning hourly rates and shift patterns into clear earnings summaries, it helps users see exactly what they should be paid and plan their finances with confidence.
+**ShiftPay** helps hourly and shift-based workers keep their schedules and earnings organised without spreadsheets or guesswork. It makes logging, planning, and reviewing work simple, whether online or offline.
 
-### Problem Statement
+### What It Solves
 
-Shift workers often face difficulties in tracking their hours and income accurately, especially when dealing with irregular hours, varying rates, and unpaid breaks. This can lead to missed payments, inaccurate pay calculations, and a lack of work-life balance. **ShiftPay** provides a streamlined solution for workers to track their time and income efficiently.
-
+- **Fragmented tracking:** replaces scattered notes/apps with one simple place.
+- **Uncertainty about hours:** clearly shows shift durations and totals.
+- **Weekly planning:** visual schedule to plan and adjust quickly.
+- **Connectivity gaps:** works offline; syncs when you sign in.
+- **Data inconsistency:** consistent formats so your records stay clean.
 ### Target Audience
 
-- **Shift Workers**: Individuals working hourly or irregular shifts who need to track both their time and earnings.
-- **Freelancers**: Workers with flexible schedules and multiple employers who require accurate tracking of hours and pay.
+- **Shift Workers:** Individuals working hourly or irregular shifts who need to track both their time and earnings.
+- **Freelancers:** Workers with flexible schedules and multiple employers who require accurate tracking of hours and pay.
 
 ### Key Features
 
-- **Track earnings** based on hourly rates.
-- **Record working hours** for accurate time tracking.
-- **Visualise work schedule** and manage shift patterns.
+- **Shift Tracking:** Log and manage shifts with start/end times, pay rate, breaks, and more.
+- **Earnings Calculation:** Automatically compute pay based on hours worked and rates.
+- **Offline-first:** Access and log shifts without internet; sync later.
 
 [Live Version](https://shiftpay-mqtran.netlify.app/)
 
@@ -30,11 +33,9 @@ Shift workers often face difficulties in tracking their hours and income accurat
 
 - [Introduction](#introduction)
 - [Functional Requirements](#functional-requirements)
-- [Technical Design](#technical-design)
 - [System Architecture](#system-architecture)
 - [API Design](#api-design)
 - [Wireframes](#wireframes)
-- [User Stories](#user-stories)
 - [Testing](#testing)
 - [License](#license)
 
@@ -51,18 +52,13 @@ This repository serves as a central place for all the documentation related to t
 ## Functional Requirements
 
 The **Functional Requirements** section outlines the main features of the application. This includes:
-- Task management (create, read, update, delete tasks)
+- **Authentication:** Sign in/out via Azure AD B2C; UI reflects auth state.
+- **Shifts Management:** Create, view, edit, delete shifts; daily/weekly views; validated data; duration calculation.
+- **Shift Templates:** Create, edit, delete templates; apply templates to prefill new shifts.
+- **Shift Recurrence:** Define recurring schedules; expand into dated instances; edit or skip single occurrences.
+- **Persistence and Sync:** Store locally when signed out; sync with backend API when signed in.
 
-You can read the full **Functional Requirements** document [here](docs/functional-requirements.md).
-
-## Technical Design
-
-This section explains the technical aspects of the project, including:
-- The chosen technology stack
-- System architecture and components
-- Data flow and interactions between different layers of the system
-
-To dive deeper, view the full **Technical Design** document [here](docs/technical-design.md).
+Full [Functional Requirements document](docs/functional-requirements.md).
 
 ## System Architecture
 
@@ -83,12 +79,6 @@ For detailed API documentation, check out the **API Design** document [here](doc
 Wireframes are provided to showcase the user interface design and flow. These wireframes help visualise the key screens of the application and user interactions.
 
 You can view the **Wireframes** folder [here](docs/wireframes/).
-
-## User Stories
-
-This section defines the interactions between the user and the system through user stories. It captures how the system behaves from a user's perspective.
-
-Check out the full **User Stories** document [here](docs/user-stories.md).
 
 ## Testing
 
