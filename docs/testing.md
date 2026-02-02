@@ -32,15 +32,15 @@ The test project (`ShiftPay_Backend.Tests`) uses **xUnit v3** as the testing fra
 
 ```
 ShiftPay_Backend.Tests/
-├── CosmosDbTestFixture.cs      # Shared Cosmos DB emulator fixture
-├── ControllerTestHelper.cs     # Helper for creating controllers with test context
-├── ShiftsControllerTests.cs    # Unit tests for ShiftsController
-├── WorkInfosControllerTests.cs # Unit tests for WorkInfosController
-├── ShiftTemplatesControllerTests.cs  # Unit tests for ShiftTemplatesController
-├── DatabaseInfrastructureTests.cs    # Cosmos DB constraint tests
-├── IntegrationTests.cs         # HTTP tests without authentication
-├── AuthenticatedIntegrationTests.cs  # HTTP tests with fake authentication
-└── appsettings.Test.json       # Test environment configuration
+├── CosmosDbTestFixture.cs           # Shared Cosmos DB emulator fixture
+├── ControllerTestHelper.cs          # Helper for creating controllers with test context
+├── ShiftsControllerTests.cs         # Unit tests for ShiftsController
+├── WorkInfosControllerTests.cs      # Unit tests for WorkInfosController
+├── ShiftTemplatesControllerTests.cs # Unit tests for ShiftTemplatesController
+├── DatabaseInfrastructureTests.cs   # Cosmos DB constraint tests
+├── IntegrationTests.cs              # HTTP tests without authentication
+├── AuthenticatedIntegrationTests.cs # HTTP tests with fake authentication
+└── appsettings.Test.json            # Test environment configuration
 ```
 
 ---
@@ -109,29 +109,29 @@ Test controller methods directly with a real Cosmos DB Emulator database but moc
 [Collection("CosmosDb")]
 public class ShiftsControllerTests
 {
-    private readonly CosmosDbTestFixture _fixture;
-    private readonly string _testUserId = $"shifts-test-{Guid.NewGuid():N}";
+	private readonly CosmosDbTestFixture _fixture;
+	private readonly string _testUserId = $"shifts-test-{Guid.NewGuid():N}";
 
-    public ShiftsControllerTests(CosmosDbTestFixture fixture)
-    {
-        _fixture = fixture;
-    }
+	public ShiftsControllerTests(CosmosDbTestFixture fixture)
+	{
+		_fixture = fixture;
+	}
 
-    [Fact]
-    public async Task GetShifts_WhenNoShiftsExist_ReturnsEmptyList()
-    {
-        // Arrange
-        await using var context = _fixture.CreateContext();
-        var controller = ControllerTestHelper.CreateShiftsController(context, _testUserId);
+	[Fact]
+	public async Task GetShifts_WhenNoShiftsExist_ReturnsEmptyList()
+	{
+		// Arrange
+		await using var context = _fixture.CreateContext();
+		var controller = ControllerTestHelper.CreateShiftsController(context, _testUserId);
 
-        // Act
-        var result = await controller.GetShifts(null, null, null, null, null, null);
+		// Act
+		var result = await controller.GetShifts(null, null, null, null, null, null);
 
-        // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result.Result);
-        var shifts = Assert.IsAssignableFrom<IEnumerable<ShiftDTO>>(okResult.Value);
-        Assert.Empty(shifts);
-    }
+		// Assert
+		var okResult = Assert.IsType<OkObjectResult>(result.Result);
+		var shifts = Assert.IsAssignableFrom<IEnumerable<ShiftDTO>>(okResult.Value);
+		Assert.Empty(shifts);
+	}
 }
 ```
 
@@ -160,25 +160,25 @@ Test the full HTTP pipeline using Aspire's testing infrastructure.
 [Collection("Aspire Integration")]
 public class IntegrationTests : IAsyncLifetime
 {
-    private DistributedApplication? _app;
-    private HttpClient? _httpClient;
+	private DistributedApplication? _app;
+	private HttpClient? _httpClient;
 
-    public async ValueTask InitializeAsync()
-    {
-        var appHost = await DistributedApplicationTestingBuilder
-            .CreateAsync<Projects.ShiftPay_Backend_AppHost>();
-        
-        _app = await appHost.BuildAsync();
-        await _app.StartAsync();
-        _httpClient = _app.CreateHttpClient("shiftpay-backend");
-    }
+	public async ValueTask InitializeAsync()
+	{
+		var appHost = await DistributedApplicationTestingBuilder
+			.CreateAsync<Projects.ShiftPay_Backend_AppHost>();
+		
+		_app = await appHost.BuildAsync();
+		await _app.StartAsync();
+		_httpClient = _app.CreateHttpClient("shiftpay-backend");
+	}
 
-    [Fact]
-    public async Task GetShifts_WithoutAuth_ReturnsUnauthorized()
-    {
-        var response = await _httpClient!.GetAsync("/api/shifts");
-        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-    }
+	[Fact]
+	public async Task GetShifts_WithoutAuth_ReturnsUnauthorized()
+	{
+		var response = await _httpClient!.GetAsync("/api/shifts");
+		Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+	}
 }
 ```
 
@@ -193,7 +193,7 @@ public class IntegrationTests : IAsyncLifetime
 
 ### Database Infrastructure Tests
 
-Verify Cosmos DB container setup and unique key constraints (for local development only).
+Verify Cosmos DB container setup and unique key constraints.
 
 **Test Class:** `DatabaseInfrastructureTests`
 
@@ -271,28 +271,28 @@ private readonly string _testUserId = $"shifts-test-{Guid.NewGuid():N}";
 [Collection("CosmosDb")]
 public class MyControllerTests
 {
-    private readonly CosmosDbTestFixture _fixture;
-    private readonly string _testUserId = $"mytest-{Guid.NewGuid():N}";
+	private readonly CosmosDbTestFixture _fixture;
+	private readonly string _testUserId = $"mytest-{Guid.NewGuid():N}";
 
-    public MyControllerTests(CosmosDbTestFixture fixture)
-    {
-        _fixture = fixture;
-    }
+	public MyControllerTests(CosmosDbTestFixture fixture)
+	{
+		_fixture = fixture;
+	}
 
-    [Fact]
-    public async Task MyMethod_WhenCondition_ReturnsExpectedResult()
-    {
-        // Arrange
-        await using var context = _fixture.CreateContext();
-        var controller = ControllerTestHelper.CreateMyController(context, _testUserId);
+	[Fact]
+	public async Task MyMethod_WhenCondition_ReturnsExpectedResult()
+	{
+		// Arrange
+		await using var context = _fixture.CreateContext();
+		var controller = ControllerTestHelper.CreateMyController(context, _testUserId);
 
-        // Act
-        var result = await controller.MyMethod();
+		// Act
+		var result = await controller.MyMethod();
 
-        // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result.Result);
-        // ... assertions
-    }
+		// Assert
+		var okResult = Assert.IsType<OkObjectResult>(result.Result);
+		// ... assertions
+	}
 }
 ```
 
@@ -302,32 +302,32 @@ public class MyControllerTests
 [Collection("Aspire Integration")]
 public class MyIntegrationTests : IAsyncLifetime
 {
-    private DistributedApplication? _app;
-    private HttpClient? _httpClient;
+	private DistributedApplication? _app;
+	private HttpClient? _httpClient;
 
-    public async ValueTask InitializeAsync()
-    {
-        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
-        var appHost = await DistributedApplicationTestingBuilder
-            .CreateAsync<Projects.ShiftPay_Backend_AppHost>();
-        _app = await appHost.BuildAsync();
-        await _app.StartAsync();
-        _httpClient = _app.CreateHttpClient("shiftpay-backend");
-    }
+	public async ValueTask InitializeAsync()
+	{
+		Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
+		var appHost = await DistributedApplicationTestingBuilder
+			.CreateAsync<Projects.ShiftPay_Backend_AppHost>();
+		_app = await appHost.BuildAsync();
+		await _app.StartAsync();
+		_httpClient = _app.CreateHttpClient("shiftpay-backend");
+	}
 
-    public async ValueTask DisposeAsync()
-    {
-        _httpClient?.Dispose();
-        if (_app is not null) await _app.DisposeAsync();
-        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", null);
-    }
+	public async ValueTask DisposeAsync()
+	{
+		_httpClient?.Dispose();
+		if (_app is not null) await _app.DisposeAsync();
+		Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", null);
+	}
 
-    [Fact]
-    public async Task MyEndpoint_ReturnsExpectedResponse()
-    {
-        var response = await _httpClient!.GetAsync("/api/myendpoint");
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-    }
+	[Fact]
+	public async Task MyEndpoint_ReturnsExpectedResponse()
+	{
+		var response = await _httpClient!.GetAsync("/api/myendpoint");
+		Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+	}
 }
 ```
 
