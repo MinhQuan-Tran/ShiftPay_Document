@@ -193,7 +193,7 @@ public class IntegrationTests : IAsyncLifetime
 
 ### Database Infrastructure Tests
 
-Verify Cosmos DB container setup and unique key constraints.
+Verify Cosmos DB container setup and unique key constraints (for local development only).
 
 **Test Class:** `DatabaseInfrastructureTests`
 

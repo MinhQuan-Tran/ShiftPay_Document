@@ -82,16 +82,10 @@ You can view the **Wireframes** folder [here](docs/wireframes/).
 
 ## Testing
 
-The **Testing** section outlines the various tests conducted for the project, including unit tests, integration tests, and end-to-end tests. It also includes instructions for setting up and running tests.
+The **Testing** section outlines the various tests conducted for the project, including unit tests and integration tests. It also includes instructions for setting up and running tests.
 
 You can access the **Testing** documentation [here](docs/testing.md).
 
 ## License
 
 This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
-
----
-
-### Contribution
-
-If you would like to contribute to improving the documentation, feel free to create a pull request or open an issue.
