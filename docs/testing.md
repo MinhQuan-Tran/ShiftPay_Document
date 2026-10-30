@@ -26,6 +26,25 @@ The test project (`ShiftPay_Backend.Tests`) uses **xUnit v3** as the testing fra
 | Integration Tests | Test full HTTP pipeline | AppHost (Aspire) | Real middleware (fake auth) |
 | Infrastructure Tests | Verify database constraints | Cosmos DB Emulator | N/A |
 
+### Work profile regression checks
+
+The WorkInfo rework adds pure model tests that do not require Cosmos DB, plus controller tests that use the existing emulator fixture. Run the focused model tests with:
+
+```bash
+dotnet test --filter "FullyQualifiedName~WorkInfoModelTests"
+```
+
+Frontend checks use the existing Vue/Vitest toolchain:
+
+```bash
+npm run type-check
+npm test -- --run
+npm run lint
+npm run build
+```
+
+Coverage should verify legacy numbers become stable unnamed choices, profiles without rates survive storage/import/sync, equal amounts retain separate names, explicit removals do not resurrect legacy values, profile/workplace changes clear stale selections, and templates/repeated shifts retain saved details. Database checks must also cover POST sync with a different local ID, user isolation, nested profile replacement, and reading documents created before profiles existed. Saved shift earnings must remain unchanged when profile rates are edited or deleted.
+
 ---
 
 ## Test Architecture

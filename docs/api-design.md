@@ -68,6 +68,8 @@ Represents a work shift record.
 | `endTime` | `datetime` | Yes | Shift end time (must be after `startTime`) |
 | `unpaidBreaks` | `TimeSpan[]` | Yes | List of unpaid break durations |
 
+Shifts and templates also accept optional `workProfileId`, `payRateId`, `position`, `location`, and `payRateName` fields. These are saved snapshots; the server does not resolve a profile to recalculate `payRate`. Old records without these fields remain valid. Profile and rate IDs identify the chosen options even when their amounts match.
+
 **Validation Rules:**
 - `startTime` must be before `endTime`
 - `payRate` cannot be negative
@@ -105,21 +107,39 @@ Represents a reusable shift template.
 
 ### WorkInfoDTO
 
-Represents workplace metadata with associated pay rates.
+Represents one workplace per user, containing separate position/location profiles and named hourly rates.
 
 ```json
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "workplace": "Coffee Shop",
-  "payRates": [20.50, 22.00, 25.50]
+  "payRates": [25.50, 30.00],
+  "profiles": [
+    {
+      "id": "52ec312c-8671-4e7b-bf60-ac62ec18c9e9",
+      "position": "Barista",
+      "location": "City branch",
+      "payRates": [
+        { "id": "8c52ae31-14a9-42c8-8d6b-9c366bfa5b06", "name": "Standard", "hourlyRate": 25.50 },
+        { "id": "2d02f26a-d980-40e3-8bdb-c299804b1e33", "name": "Weekend", "hourlyRate": 30.00 }
+      ]
+    }
+  ]
 }
 ```
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | `guid?` | No | Auto-generated on create |
-| `workplace` | `string` | Yes | Unique workplace name per user (trimmed) |
-| `payRates` | `decimal[]` | No | List of pay rates for this workplace (≥ 0) |
+| `workplace` | `string` | Yes | Unique workplace name per user (trimmed); immutable after creation |
+| `payRates` | `decimal[]` | No | Legacy numeric projection of all profile rates; amounts are non-negative |
+| `profiles` | `WorkProfile[]` | On PUT | Complete profiles; an explicit empty list removes all profiles |
+
+Each profile has a stable string `id`, optional `position` and `location` (up to 200 characters each), and a `payRates` list. Each rate has a stable string `id`, a `name` (up to 100 characters), and a non-negative `hourlyRate`. IDs must be unique within their containing workplace/profile, non-empty, and at most 100 characters. New UI entries use UUIDs. Duplicate amounts with different IDs and names are valid. Profiles may have no rates.
+
+Older documents and backups containing only numbers expose a generic profile with ID `legacy`, and rates with stable IDs `legacy-{amount}` and empty names. The UI shows the amount when no name exists. IDs stay stable when an amount is edited. Custom remembered amounts use the same rate ID format within their selected profile; if an edited rate already occupies that ID, the new amount receives a UUID and the name `Custom`. The application does not guess whether an old amount means Standard, Weekend, or Holiday.
+
+When structured profiles are supplied, they are authoritative over the numeric projection. Old Cosmos documents stay readable, and explicitly removed profiles/rates do not reappear from a stale numeric list. All profiles remain embedded in the existing workplace document, preserving the Cosmos `/UserId` partition and unique `/Workplace` key without a container migration.
 
 ---
 
@@ -400,7 +420,7 @@ DELETE /api/ShiftTemplates/{id}
 
 ### Work Infos (`/api/WorkInfos`)
 
-Manage workplace information and associated pay rates.
+Manage workplace profiles and named rates. These endpoints remain scoped to the authenticated user.
 
 ---
 
@@ -418,8 +438,8 @@ Retrieves all work info records for the authenticated user.
 Content-Type: application/json
 
 [
-  { "id": "...", "workplace": "Coffee Shop", "payRates": [20.50, 25.00] },
-  { "id": "...", "workplace": "Restaurant", "payRates": [18.00] }
+  { "id": "...", "workplace": "Coffee Shop", "payRates": [20.50, 25.00], "profiles": [{ "id": "legacy", "payRates": [{ "id": "legacy-20.5", "name": "", "hourlyRate": 20.50 }, { "id": "legacy-25", "name": "", "hourlyRate": 25.00 }] }] },
+  { "id": "...", "workplace": "Restaurant", "payRates": [], "profiles": [{ "id": "d3feb020-bdbf-436f-afd8-ee2e17f4343f", "position": "Supervisor", "location": "North", "payRates": [] }] }
 ]
 ```
 
@@ -441,7 +461,7 @@ GET /api/WorkInfos/{id}
 
 ---
 
-#### Create or Update Work Info
+#### Create or Merge Work Info
 
 ```http
 POST /api/WorkInfos
@@ -455,8 +475,9 @@ Content-Type: application/json
 ```
 
 **Behavior:**
-- If `id` is provided and exists → **updates** the record (merges `payRates` with existing values).
-- Otherwise → **creates** a new record.
+- Finds an existing record by ID in the user's partition, then by workplace to support local backups whose generated ID differs from the account record.
+- Creates a record when none exists. Otherwise merges profiles and rates by stable ID; existing metadata and amounts win on matching IDs. Use PUT for deliberate edits or removals.
+- Legacy requests containing numeric `payRates` remain additive. Complete profile payloads use the `WorkInfoDTO` shape above.
 
 **Response:**
 
@@ -469,6 +490,19 @@ Content-Type: application/json
 
 ---
 
+#### Replace Work Info Profiles
+
+```http
+PUT /api/WorkInfos/{id}
+Content-Type: application/json
+```
+
+Send the complete `WorkInfoDTO`, including `profiles`. Replaces the profile/rate lists, allowing edits and removals. Workplace names cannot change; create a new workplace instead. An optional body ID must match the route ID. Returns `200 OK`, `400 Bad Request` for invalid input, `404 Not Found` for an unavailable record, or `409 Conflict` for a database conflict.
+
+Deploy the backend before the frontend. Existing numeric-rate clients remain compatible; new clients need the structured GET/POST and PUT support to preserve profile details. Work profile changes affect future selection only. Templates keep their saved amount until explicitly edited or replaced.
+
+---
+
 #### Delete Work Info or Pay Rate
 
 ```http
@@ -478,7 +512,7 @@ DELETE /api/WorkInfos/{id}?payRate=25.50
 
 **Behavior:**
 - Without `payRate` → Deletes the entire work info record.
-- With `payRate` → Removes only that specific pay rate from the list.
+- With `payRate` → Removes matching unnamed legacy/custom rate entries. Named rates with the same amount remain intact. Use PUT with rate IDs to edit or remove named choices.
 
 **Response:**
 

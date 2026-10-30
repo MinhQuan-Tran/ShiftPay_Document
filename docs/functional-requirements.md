@@ -15,6 +15,14 @@
 - The system shall allow users to create, view, edit, and delete shift templates.
 - The system shall allow users to apply a template to prefill a new shift.
 
+## Work Information
+- The system shall group work profiles under a workplace, with an optional position and location for each profile.
+- Each profile shall support named fixed hourly rates, such as Standard, Overnight, Weekend, and Holiday. Different names may have the same amount.
+- Users shall select a profile and rate when entering a shift, or enter a custom hourly amount. Rate names do not automatically apply date, holiday, or overnight rules.
+- The Work details editor shall support creating, editing, and removing profiles and rates without changing the workplace name.
+- Saved shifts and templates shall retain their selected position, location, rate name, and hourly amount. Editing or deleting work information shall not recalculate existing records.
+- Existing numeric rates shall remain available without assigning an inferred rate category. Local storage, backups, import, and account sync shall preserve complete profiles, including profiles without rates.
+
 ## Shift Recurrence
 - The system shall allow users to create shifts that recur on a schedule (e.g., daily or weekly).
 - The system shall expand recurrence into concrete shift instances within a selected date range.
